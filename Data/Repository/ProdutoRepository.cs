@@ -1,4 +1,5 @@
-﻿using Data.Context;
+﻿using Dapper;
+using Data.Context;
 using Data.Model;
 using Npgsql;
 
@@ -8,14 +9,14 @@ namespace Data.Repository
     {
         public DataBaseConfig context = new DataBaseConfig();
 
-        //public Produto BuscaProduto(int id)
-        //{
-        //    using (var connection = new NpgsqlConnection(context.ConnectionString()))
-        //    {
-        //        connection.Open();
-        //        var sql = "SELECT * FROM clientes WHERE Id = @Id";
-        //        return connection.QueryFirstOrDefault<Produto>(sql, new { Id = id });
-        //    }
-        //}
+        public Produto BuscaProduto(int id)
+        {
+            using (var connection = new NpgsqlConnection(context.ConnectionString()))
+            {
+                connection.Open();
+                var sql = "SELECT * FROM clientes WHERE Id = @Id";
+                return connection.QueryFirstOrDefault<Produto>(sql, new { Id = id });
+            }
+        }
     }
 }
