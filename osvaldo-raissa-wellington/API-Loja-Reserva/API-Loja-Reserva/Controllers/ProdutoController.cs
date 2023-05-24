@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -9,86 +10,50 @@ using System.Web.Mvc;
 namespace API_Loja_Reserva.Controllers
 {
     public class ProdutoController : ApiController
-     {
+    {
 
 
         // GET: Produto
         public IEnumerable<ProdutoModel> Get()
         {
             return ProdutoModel.Todos();
-           
+
         }
 
         // GET: Produto/Details/5
-        public ProdutoModel Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return View();
-        }
 
-        // GET: Produto/Create
-        public ActionResult Create()
-        {
-            return View();
+            ProdutoModel produto = ProdutoModel.Buscar(id);
+            if (produto == null)
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+
+            return Ok(produto);
+
         }
 
         // POST: Produto/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        public void Post([FromBody] ProdutoModel produto)
+        {
+            
+             produto.Adicionar();
+            
         }
 
-        // GET: Produto/Edit/5
-        public ActionResult Edit(int id)
+        // PUT: Produto/Create
+        public void Put(int id, [FromBody] ProdutoModel produto)
         {
-            return View();
+
+            produto.Atualizar(id);
+
         }
 
-        // POST: Produto/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public void Delete(int id)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Produto/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Produto/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ProdutoModel.Remover(id);
         }
     }
 }
