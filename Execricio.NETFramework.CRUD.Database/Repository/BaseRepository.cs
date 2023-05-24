@@ -41,7 +41,6 @@ namespace Execricio.NETFramework.CRUD.Database.Repository
             }
         }
 
-
         /// <summary>
         /// Cria um novo registro no banco de dados.
         /// </summary>
@@ -114,5 +113,4 @@ namespace Execricio.NETFramework.CRUD.Database.Repository
             _connection?.Dispose();
         }
     }
-}
 }
