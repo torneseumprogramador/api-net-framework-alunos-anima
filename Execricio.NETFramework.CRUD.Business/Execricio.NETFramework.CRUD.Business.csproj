@@ -51,7 +51,16 @@
     <Compile Include="Requests\ProdutoRequest.cs" />
     <Compile Include="Responses\PrecoResponse.cs" />
     <Compile Include="Responses\ProdutoResponse.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\Interfaces\IBaseService.cs" />
+    <Compile Include="Services\PrecoService.cs" />
+    <Compile Include="Services\ProdutoService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Execricio.NETFramework.CRUD.Database\Execricio.NETFramework.CRUD.Database.csproj">
+      <Project>{8036C47C-A452-4795-ABA2-E8D31FCA3EF7}</Project>
+      <Name>Execricio.NETFramework.CRUD.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
