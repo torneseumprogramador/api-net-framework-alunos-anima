@@ -45,11 +45,5 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Execricio.NETFramework.CRUD.Database\Execricio.NETFramework.CRUD.Database.csproj">
-      <Project>{8036c47c-a452-4795-aba2-e8d31fca3ef7}</Project>
-      <Name>Execricio.NETFramework.CRUD.Database</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

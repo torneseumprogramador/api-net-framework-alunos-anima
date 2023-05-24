@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 
 namespace Execricio.NETFramework.CRUD.Database.Repository
 {
     public class BaseRepository : IBaseRepository, IDisposable
     {
-        private string _connectionString = "Data Source=database.db;Version=3;";
+        private string _connectionString = "Data Source=ReservaDatabase.db;Version=3;";
         private SQLiteConnection _connection;
 
         /// <summary>
