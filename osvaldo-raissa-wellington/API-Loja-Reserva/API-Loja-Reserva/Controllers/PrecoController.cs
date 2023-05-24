@@ -1,4 +1,6 @@
 ﻿using API_Loja_Reserva.Models;
+using API_Loja_Reserva.Requests;
+using API_Loja_Reserva.Services;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
@@ -6,14 +8,14 @@ using System.Web.Http;
 
 namespace API_Loja_Reserva.Controllers
 {
-    public class ProdutoController : ApiController
+    public class PrecoController : ApiController
     {
 
 
         // GET: Produto
-        public IEnumerable<ProdutoModel> Get()
+        public IEnumerable<PrecoModel> Get()
         {
-            return ProdutoModel.Todos();
+            return PrecoModel.Todos();
 
         }
 
@@ -21,36 +23,37 @@ namespace API_Loja_Reserva.Controllers
         public IHttpActionResult Get(int id)
         {
 
-            ProdutoModel produto = ProdutoModel.Buscar(id);
-            if (produto == null)
+            PrecoModel preco = PrecoModel.Buscar(id);
+            if (preco == null)
             {
                 return StatusCode(HttpStatusCode.NotFound);
             }
 
-            return Ok(produto);
+            return Ok(preco);
 
         }
 
         // POST: Produto/Create
 
-        public void Post([FromBody] ProdutoModel produto)
+        public void Post([FromBody] PrecoPostRequest preco)
         {
-            
-             produto.Adicionar();
-            
+
+            PrecoService.AdicionarPreco(preco);
+
+
         }
 
         // PUT: Produto/Create
-        public void Put(int id, [FromBody] ProdutoModel produto)
+        public void Put(int id, [FromBody] PrecoModel preco)
         {
 
-            produto.Atualizar(id);
+            preco.Atualizar(id);
 
         }
 
         public void Delete(int id)
         {
-            ProdutoModel.Remover(id);
+            PrecoModel.Remover(id);
         }
     }
 }
