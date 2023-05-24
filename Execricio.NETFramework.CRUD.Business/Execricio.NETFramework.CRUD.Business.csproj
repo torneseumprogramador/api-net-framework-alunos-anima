@@ -42,8 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DTOs\PrecoDTO.cs" />
+    <Compile Include="DTOs\ProdutoDTO.cs" />
+    <Compile Include="Models\PrecoModel.cs" />
+    <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\PrecoRequest.cs" />
+    <Compile Include="Requests\ProdutoRequest.cs" />
+    <Compile Include="Responses\PrecoResponse.cs" />
+    <Compile Include="Responses\ProdutoResponse.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
