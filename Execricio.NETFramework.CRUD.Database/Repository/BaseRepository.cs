@@ -3,29 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 
-namespace Execricio.NETFramework.CRUD.Database.Repository
+namespace Execricio.NETFramework.CRUD.Data.Repository
 {
-    public class BaseRepository : IBaseRepository, IDisposable
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private string _connectionString = "Data Source=ReservaDatabase.db;Version=3;";
-        private SQLiteConnection _connection;
+        private SQLiteConnection _sqliteConnection;
 
-        /// <summary>
-        /// Obtém a conexão com o banco de dados.
-        /// </summary>
-        /// <returns>A conexão com o banco de dados.</returns>
-        public IDbConnection GetConnection()
+        public SQLiteConnection GetConnection()
         {
-            _connection = new SQLiteConnection(_connectionString);
-            _connection.Open();
-            return _connection;
+            _sqliteConnection = new SQLiteConnection(_connectionString);
+            _sqliteConnection.Open();
+            return _sqliteConnection;
         }
 
-        /// <summary>
-        /// Obtém o status da conexão com o banco de dados.
-        /// </summary>
-        /// <returns>O o status da conexão com o banco de dados.</returns>
         public bool GetStatusConnection()
         {
             try
@@ -41,76 +34,149 @@ namespace Execricio.NETFramework.CRUD.Database.Repository
             }
         }
 
-        /// <summary>
-        /// Cria um novo registro no banco de dados.
-        /// </summary>
-        /// <param name="entity">O objeto a ser criado.</param>
-        /// <returns>True se a criação for bem-sucedida, False caso contrário.</returns>
-        public virtual bool Salvar(object entity)
+        public bool Salvar(T entity)
         {
             using (var connection = GetConnection())
             {
-                return false;
+                string tableName = NomeTabela();
+                string columnNames = NomeColunas(entity);
+                string parameterNames = NomeParametros(entity);
+
+                string query = $"INSERT INTO {tableName} ({columnNames}) VALUES ({parameterNames})";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    AdicionarParametros(command, entity);
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
         }
 
-        /// <summary>
-        /// Retorna todos os registros do banco de dados.
-        /// </summary>
-        /// <returns>Uma coleção de objetos representando os registros do banco de dados.</returns>
-        public virtual IEnumerable<object> Recuperar()
+        public IEnumerable<T> Recuperar()
         {
             using (var connection = GetConnection())
             {
-                return null;
+                string tableName = NomeTabela();
+                string query = $"SELECT * FROM {tableName}";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            yield return MapearObjeto(reader);
+                        }
+                    }
+                }
             }
         }
 
-        /// <summary>
-        /// Retorna um registro do banco de dados com base no ID fornecido.
-        /// </summary>
-        /// <param name="id">O ID do registro.</param>
-        /// <returns>O objeto representando o registro do banco de dados ou null se não encontrado.</returns>
-        public virtual object Recuperar(int id)
+        public T Recuperar(int id)
         {
             using (var connection = GetConnection())
             {
-                return null;
+                string tableName = NomeTabela();
+                string query = $"SELECT * FROM {tableName} WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return MapearObjeto(reader);
+                        }
+                    }
+                }
             }
+
+            return null;
         }
 
-        /// <summary>
-        /// Atualiza um registro existente no banco de dados.
-        /// </summary>
-        /// <param name="entity">O objeto a ser atualizado.</param>
-        /// <returns>True se a atualização for bem-sucedida, False caso contrário.</returns>
-        public virtual bool Atualizar(object entity)
+        public bool Atualizar(T entity)
         {
             using (var connection = GetConnection())
             {
-                return false;
+                string tableName = NomeTabela();
+                string columnNames = NomeColunas(entity, excluirId: true);
+                string query = $"UPDATE {tableName} SET {columnNames} WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    AdicionarParametros(command, entity);
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
         }
 
-        /// <summary>
-        /// Exclui um registro do banco de dados com base no ID fornecido.
-        /// </summary>
-        /// <param name="id">O ID do registro a ser excluído.</param>
-        /// <returns>True se a exclusão for bem-sucedida, False caso contrário.</returns>
-        public virtual bool Deletar(int id)
+        public bool Deletar(int id)
         {
             using (var connection = GetConnection())
             {
-                return false;
+                string tableName = NomeTabela();
+                string query = $"DELETE FROM {tableName} WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
         }
 
-        /// <summary>
-        /// Libera os recursos utilizados pela conexão com o banco de dados.
-        /// </summary>
+        private string NomeTabela()
+        {
+            return typeof(T).ToString().Replace("Model", string.Empty);
+        }
+
+        private string NomeColunas(T entity, bool excluirId = false)
+        {
+            var properties = typeof(T).GetProperties();
+            if (excluirId)
+            {
+                properties = properties.Where(p => p.Name != "Id").ToArray();
+            }
+
+            return string.Join(", ", properties.Select(p => p.Name));
+        }
+
+        private string NomeParametros(T entity)
+        {
+            var properties = typeof(T).GetProperties();
+            return string.Join(", ", properties.Select(p => $"@{p.Name}"));
+        }
+
+        private void AdicionarParametros(SQLiteCommand command, T entity)
+        {
+            var properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(entity));
+            }
+        }
+
+        private T MapearObjeto(SQLiteDataReader reader)
+        {
+            var entity = Activator.CreateInstance<T>();
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                if (reader[property.Name] != DBNull.Value)
+                {
+                    property.SetValue(entity, reader[property.Name]);
+                }
+            }
+
+            return entity;
+        }
+
         public void Dispose()
         {
-            _connection?.Dispose();
+            _sqliteConnection?.Dispose();
         }
     }
 }

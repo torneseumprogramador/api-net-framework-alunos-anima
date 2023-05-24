@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/rafael.deroncio/Desktop/Rafael/Gama/GitHubGrupo/api-net-framework-alunos-anima/Execricio.NETFramework.CRUD.Database/ReservaDatabase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="1407"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainprecos"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="precos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="106"/><column index="3" value="186"/><column index="4" value="162"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">Drop EXISTS table produtos;
+Drop EXISTS table precos;
+
+CREATE TABLE produtos (
+    id INTEGER PRIMARY KEY,
+    nome TEXT,
+    descricao TEXT
+);
+
+CREATE TABLE precos (
+    id INTEGER PRIMARY KEY,
+    produto_id INTEGER,
+    preco REAL,
+    data TEXT,
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Camiseta Reserva', 'Camiseta de algodão com estampa Reserva');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Calça Reserva', 'Calça jeans estilo slim Reserva');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Tênis Reserva', 'Tênis esportivo Reserva com tecnologia de amortecimento');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Bermuda Reserva', 'Bermuda de sarja Reserva com bolsos laterais');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Jaqueta Reserva', 'Jaqueta de couro sintético Reserva com forro interno');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Boné Reserva', 'Boné de baseball com logo Reserva bordado');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Sapato Reserva', 'Sapato social de couro Reserva com solado de borracha');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Camisa Reserva', 'Camisa social slim fit Reserva de algodão');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Óculos de Sol Reserva', 'Óculos de sol estilo aviador Reserva com lentes polarizadas');
+
+INSERT INTO produtos (nome, descricao)
+VALUES ('Moletom Reserva', 'Moletom com capuz e estampa frontal Reserva');
+
+INSERT INTO precos (produto_id, preco, data)
+SELECT id, ROUND((ABS(RANDOM()) * 100) + 50, 2), DATETIME('now')
+FROM produtos;
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
