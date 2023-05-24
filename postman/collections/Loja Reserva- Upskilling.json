@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "780643f5-86c7-48fa-a249-9b5f0e51a45e",
+		"name": "Loja Reserva- Upskilling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "16287288-780643f5-86c7-48fa-a249-9b5f0e51a45e"
+	},
+	"item": [
+		{
+			"name": "Todos os Produtos",
+			"id": "417ceaec-56f6-40aa-8bbe-07b7a130d4ba",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44383/api/Produto",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Produto",
+			"id": "a26dc06c-72a5-4dc1-82ea-ba3e99e94972",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44383/api/Produto/?id=21",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Produto",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar Produto",
+			"id": "a243775c-44eb-4c5b-a626-0538277a32de",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Nome\": \"sample string 2\",\r\n  \"Descricao\": \"sample string 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44383/api/Produto",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Produto",
+			"id": "412263fd-14e7-459b-b99a-f884aa566352",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Nome\": \"Monitor LG\",\r\n  \"Descricao\": \"ultrawide\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44383/api/Produto/?id=24",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Produto",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Produto",
+			"id": "f472887e-2c6a-4772-95e9-99d1a75203b5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44383/api/Produto/?id=21",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Produto",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
