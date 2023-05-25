@@ -4,15 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApiProdutos.Models;
+using WebApiProdutos.Models.Interface;
 
 namespace WebApiProdutos.Controllers
 {
     public class ProdutoController : ApiController
     {
+        private readonly IProdutoModel _produtoModel = new ProdutoModel();
+
         // GET api/produto
-        public IEnumerable<string> Get()
+        public IEnumerable<ProdutoModel> Get()
         {
-            return new string[] { "Produto 01", "Produto 02" };
+            return _produtoModel.BuscarListaProdutos();
         }
 
         // GET api/produto/5
