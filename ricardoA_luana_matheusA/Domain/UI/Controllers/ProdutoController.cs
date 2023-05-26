@@ -29,7 +29,7 @@ namespace Domain.Controllers
             {
                 var produtos = _produtoService.BuscarProdutos();
                 return Ok(produtos);
-            }
+        }
             catch (Exception ex)
             {
                 // Tratar erros e retornar uma resposta apropriada
@@ -45,7 +45,7 @@ namespace Domain.Controllers
             {
                 var produto = _produtoService.BuscarProduto(id);
                 return Ok(produto);
-            }
+        }
             catch (Exception ex)
             {
                 // Tratar erros e retornar uma resposta apropriada

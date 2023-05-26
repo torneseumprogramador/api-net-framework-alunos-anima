@@ -39,6 +39,8 @@ namespace Repository.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Nome = reader["Nome"].ToString(),
                                 Descricao = reader["Descricao"].ToString(),
+                                Valor = Convert.ToDouble(reader["Valor"]),
+                                Data = Convert.ToDateTime(reader["Data"].ToString())
                             };
                             produtos.Add(produto);
                         }
@@ -75,6 +77,8 @@ namespace Repository.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Nome = reader["Nome"].ToString(),
                                 Descricao = reader["Descricao"].ToString(),
+                                Valor = Convert.ToDouble(reader["Valor"]),
+                                Data = Convert.ToDateTime(reader["Data"].ToString())
                             };
                             return produto;
                         }
@@ -94,6 +98,7 @@ namespace Repository.Repository
                     command.CommandText = @"INSERT INTO produto (nome, descricao) VALUES (@nome, @descricao);";
                     command.Parameters.AddWithValue("@nome", produto.Nome);
                     command.Parameters.AddWithValue("@descricao", produto.Descricao);
+                    command.Parameters.AddWithValue("@valor", produto.Valor);
 
                     return command.ExecuteNonQuery() > 0;
                 }
@@ -113,6 +118,8 @@ namespace Repository.Repository
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@nome", produto.Nome);
                     command.Parameters.AddWithValue("@descricao", produto.Descricao);
+                    command.Parameters.AddWithValue("@valor", produto.Valor);
+
                     return command.ExecuteNonQuery() > 0;
                 }
             }
@@ -128,6 +135,7 @@ namespace Repository.Repository
                 {
                     command.CommandText = @"DELETE FROM produto WHERE id = @id;";
                     command.Parameters.AddWithValue("@id", id);
+
                     return command.ExecuteNonQuery() > 0;
                 }
             }
