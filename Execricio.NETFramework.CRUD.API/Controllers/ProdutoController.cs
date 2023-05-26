@@ -7,7 +7,7 @@ using Execricio.NETFramework.CRUD.Business.Services.Interfaces;
 
 namespace Execricio.NETFramework.CRUD.API.Controllers
 {
-    [Route("produtos")]
+    [Route("produto")]
     public class ProdutoController : ApiController
     {
         private readonly IProdutoService _produtoService;
@@ -25,11 +25,31 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
         }
 
         [HttpGet]
-        [Route("produtos/{id}")]
+        [Route("produto/{id}")]
         public IHttpActionResult RecuperarProdutos(int id)
         {
             ProdutoResponse produto = _produtoService.RecuperarProduto(id);
             if (produto == null)
+                return NotFound();
+
+            return Ok(produto);
+        }
+
+        [HttpGet]
+        [Route("produto/vendas")]
+        public IEnumerable<ProdutoResponse> RecuperarProdutosVendas()
+        {
+            IEnumerable<ProdutoResponse> produtos = _produtoService.RecuperarProdutos(infoPreco: true);
+            return produtos;
+        }
+
+        [HttpGet]
+        [Route("produto/vendas/{id}")]
+        public IHttpActionResult RecuperarProdutoVendas(int id)
+        {
+            ProdutoResponse produto = _produtoService.RecuperarProduto(id: id, infoPreco: true);
+
+            if (produto is null)
                 return NotFound();
 
             return Ok(produto);
@@ -42,7 +62,7 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
         }
 
         [HttpPost]
-        [Route("produtos/{id}")]
+        [Route("produto/{id}")]
         public IHttpActionResult AtualizarProduto(int id, [FromBody] ProdutoRequest produto)
         {
             if (!_produtoService.AtualizarProduto(id, produto))
@@ -59,5 +79,7 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
 
             return Ok();
         }
+
+
     }
 }
