@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Database
 {
-    public class PgsqlConnection
+    public class BaseRepository
     {
         private static readonly string ConnectionString =
            "Server=localhost;Port=5432;Database=Aula-api;User Id = postgres; Password=postgres;";
@@ -22,20 +22,21 @@ namespace Database
             return dbConnection;
         }
 
-        public IEnumerable<T> BuscarLista<T>(string sql)
+        protected IEnumerable<T> BuscarLista<T>(string sql)
         {
             IDbConnection connection = GetConnection();
-            
+
             IEnumerable<T> result = connection.Query<T>(sql);
 
             return result;
         }
 
-        public IEnumerable<T> BuscarListaProdutos<T>()
+        protected T BuscarValor<T, R>(string sql, R argument)
         {
-            string sql = @"select * from produto";
+            IDbConnection connection = GetConnection();
 
-            return BuscarLista<T>(sql);
+            return  connection.QueryFirstOrDefault<T>(sql, argument);
         }
+
     }
 }

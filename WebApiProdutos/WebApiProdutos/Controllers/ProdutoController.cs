@@ -20,9 +20,9 @@ namespace WebApiProdutos.Controllers
         }
 
         // GET api/produto/5
-        public string Get(int id)
+        public ProdutoModel Get(int id)
         {
-            return "value";
+            return _produtoModel.BuscarProduto(id);
         }
 
         // POST api/produto

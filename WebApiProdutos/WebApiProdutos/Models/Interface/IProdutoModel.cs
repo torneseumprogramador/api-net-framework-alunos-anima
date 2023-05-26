@@ -9,5 +9,6 @@ namespace WebApiProdutos.Models.Interface
     public interface IProdutoModel
     {
         IEnumerable<ProdutoModel> BuscarListaProdutos();
+        ProdutoModel BuscarProduto(int produtoId);
     }
 }

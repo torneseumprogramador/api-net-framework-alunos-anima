@@ -11,16 +11,22 @@ using WebApiProdutos.Models.Interface;
 
 namespace WebApiProdutos.Models
 {
-    public class ProdutoModel : ProdutoService, IProdutoModel
+    public class ProdutoModel : IProdutoModel
     {
+        ProdutoService produtoService = new ProdutoService();
+
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
 
         public IEnumerable<ProdutoModel> BuscarListaProdutos()
         {
-            return BuscarListaProdutos<ProdutoModel>();
+            return produtoService.BuscarListaProdutos<ProdutoModel>();
         }
 
+        public ProdutoModel BuscarProduto(int produtoId)
+        {
+            return produtoService.BuscaProduto<ProdutoModel, int>(produtoId);
+        }
     }
 }
