@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,26 +41,70 @@ namespace Database
             return  connection.QueryFirstOrDefault<T>(sql);
         }
 
-        public void SalvarValor<T, R>(string sql, R argument)
+        public HttpResponseMessage SalvarValor<T, R>(string sql, R argument)
         {
-            IDbConnection connection = GetConnection();
-            
-            connection.Execute(sql, argument);
+            using (IDbConnection connection = GetConnection())
+            {
+                try
+                {
+                    connection.Execute(sql, argument);
+
+                    // Retorna um HttpResponseMessage com o status code 200 OK
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+                catch (Exception ex)
+                {
+                    // Trate o erro e retorne um HttpResponseMessage com o status code apropriado
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent($"Ocorreu um erro: {ex.Message}")
+                    };
+                }
+            }            
         }
 
-        public void EditarValor<T, R>(string sql, R argument)
+        // O método EditarValor é identico ao salvar valor, porém para fins didáticos ele será mantido
+        public HttpResponseMessage EditarValor<T, R>(string sql, R argument)
         {
-            IDbConnection connection = GetConnection();
+            using (IDbConnection connection = GetConnection())
+            {
+                try
+                {
+                    connection.Execute(sql, argument);
 
-            connection.Execute(sql, argument);
+                    // Retorna um HttpResponseMessage com o status code 200 OK
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+                catch (Exception ex)
+                {
+                    // Trate o erro e retorne um HttpResponseMessage com o status code apropriado
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent($"Ocorreu um erro: {ex.Message}")
+                    };
+                }
+            }
         }
 
-        public void DeletarValor(string sql)
+        public HttpResponseMessage DeletarValor(string sql)
         {
-            IDbConnection connection = GetConnection();
-
-            connection.Execute(sql);
+            using (IDbConnection connection = GetConnection())
+            {
+                try
+                {
+                    connection.Execute(sql);
+                    // Retorna um HttpResponseMessage com o status code 200 OK
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+                catch (Exception ex)
+                {
+                    // Trate o erro e retorne um HttpResponseMessage com o status code apropriado
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent($"Ocorreu um erro: {ex.Message}")
+                    };
+                }
+            }
         }
-
     }
 }

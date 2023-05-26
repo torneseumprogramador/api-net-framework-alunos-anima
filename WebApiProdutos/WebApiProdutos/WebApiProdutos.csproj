@@ -193,13 +193,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TabelaPrecoController.cs" />
+    <Compile Include="Controllers\PrecoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Interface\IProdutoModel.cs" />
-    <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />
@@ -343,10 +342,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{9905d4df-227d-4632-8720-016973c20ac6}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{33820f3a-6a0c-4fcc-b8ed-f0b57e6207c0}</Project>
       <Name>Negocio</Name>

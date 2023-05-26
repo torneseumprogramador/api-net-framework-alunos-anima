@@ -1,46 +1,45 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebApiProdutos.Models;
-using WebApiProdutos.Models.Interface;
 
 namespace WebApiProdutos.Controllers
 {
     public class ProdutoController : ApiController
     {
-        private readonly IProdutoModel _produtoModel = new ProdutoModel();
+        private readonly ProdutoService _produtoService = new ProdutoService();
 
         // GET api/produto
-        public IEnumerable<ProdutoModel> Get()
+        public IEnumerable<ProdutoService> Get()
         {
-            return _produtoModel.BuscarListaProdutos();
+            return _produtoService.BuscarListaProdutos();
         }
 
         // GET api/produto/5
-        public ProdutoModel Get(int id)
+        public ProdutoService Get(int id)
         {
-            return _produtoModel.BuscarProduto(id);
+            return _produtoService.BuscarProduto(id);
         }
 
         // POST api/produto
-        public void Post([FromBody] ProdutoModel produto)
+        public HttpResponseMessage Post([FromBody] ProdutoService produto)
         {
-            _produtoModel.SalvarProduto(produto);
+             return _produtoService.SalvarProduto(produto);
         }
 
         // PUT api/produto/5
-        public void Put(int id, [FromBody] ProdutoModel value)
+        public HttpResponseMessage Put(int id, [FromBody] ProdutoService value)
         {
-            _produtoModel.EditarProduto(id, value);
+            return _produtoService.EditarProduto(id, value);
         }
 
         // DELETE api/produto/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
-            _produtoModel.DeletarProduto(id);
+            return _produtoService.DeletarProduto(id);
         }
     }
 }

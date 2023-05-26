@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,28 +28,28 @@ namespace Database
             return BuscarValor<T>(sql);
         }
 
-        public void SalvarProduto<T, R>(R produto)
+        public HttpResponseMessage SalvarProduto<T, R>(R produto)
         {
             string sql = @"INSERT INTO produto (nome, descricao)
                                         VALUES (@nome, @descricao)";
 
-            SalvarValor<T, R>(sql, produto);
+            return SalvarValor<T, R>(sql, produto);
         }
 
-        public void EditarProduto<T, R>(R produto)
+        public HttpResponseMessage EditarProduto<T, R>(R produto)
         {
             string sql = @"UPDATE produto
-                              SET nome = @nome, descricao = @descricao
+                              SET nome = COALESCE(?, @nome), descricao = COALESCE(?, @descricao)
                             WHERE id = @id";
 
-            EditarValor<T, R>(sql, produto);
+            return SalvarValor<T, R>(sql, produto);
         }
 
-        public void DeletarProduto(int id)
+        public HttpResponseMessage DeletarProduto(int id)
         {
             string sql = $"DELETE FROM produto WHERE id = {id}";
 
-            DeletarValor(sql);
+            return DeletarValor(sql);
         }
     }
 }
