@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Execricio.NETFramework.CRUD.Business.Services.Interfaces;
+using Execricio.NETFramework.CRUD.Business.Services;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Execricio.NETFramework.CRUD.Testes
 {
@@ -10,6 +8,11 @@ namespace Execricio.NETFramework.CRUD.Testes
     {
         static void Main(string[] args)
         {
+            IProdutoService produtoService = ProdutoService.Instance;
+            IEnumerable<Business.Responses.ProdutoResponse> testeProdutoService = produtoService.RecuperarProdutos();
+
+            IPrecoService precoService = PrecoService.Instance;
+            IEnumerable<Business.Responses.PrecoResponse> testePrecoService = precoService.RecuperarPrecos();
         }
     }
 }
