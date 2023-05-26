@@ -54,8 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\PrecoDTO.cs" />
-    <Compile Include="DTOs\ProdutoDTO.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Models\PrecoModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
