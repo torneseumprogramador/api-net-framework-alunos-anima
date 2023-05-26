@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB2CAFDC-436B-4FB6-BEC6-E1F133D9F919}</ProjectGuid>
+    <ProjectGuid>{A34602DA-9A13-4F9F-94E8-E499E9544046}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Repository</RootNamespace>
-    <AssemblyName>Repository</AssemblyName>
+    <RootNamespace>Service</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -60,23 +60,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ProdutoRepository.cs" />
+    <Compile Include="Services\Interfaces\IProdutoService.cs" />
+    <Compile Include="Services\ProdutoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Service\Business.csproj">
-      <Project>{a34602da-9a13-4f9f-94e8-e499e9544046}</Project>
-      <Name>Business</Name>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{db2cafdc-436b-4fb6-bec6-e1f133d9f919}</Project>
+      <Name>Database</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Data\reserva.db" />
-    <None Include="packages.config" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
