@@ -32,13 +32,15 @@ namespace WebApiProdutos.Controllers
         }
 
         // PUT api/produto/5
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] ProdutoModel value)
         {
+            _produtoModel.EditarProduto(id, value);
         }
 
         // DELETE api/produto/5
         public void Delete(int id)
         {
+            _produtoModel.DeletarProduto(id);
         }
     }
 }

@@ -34,5 +34,22 @@ namespace WebApiProdutos.Models
         {
             produtoService.SalvarProduto<string, ProdutoModel>(produto);
         }
+
+        public void EditarProduto(int id, ProdutoModel produto)
+        {
+            ProdutoModel prod = new ProdutoModel()
+            {
+                Id = id,
+                Nome = produto.Nome,
+                Descricao = produto.Descricao
+            };
+
+            produtoService.EditarProduto<string, ProdutoModel>(prod);
+        }
+
+        public void DeletarProduto(int id)
+        {
+            produtoService.DeletarProduto(id);
+        }
     }
 }

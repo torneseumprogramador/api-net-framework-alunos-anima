@@ -21,9 +21,9 @@ namespace Database
 
         public T BuscarProduto<T, R>(R id)
         {
-            string sql = @"SELECT id, nome, descricao FROM produto WHERE id = @id";
+            string sql = $"SELECT id, nome, descricao FROM produto WHERE id = {id}";
 
-            return BuscarValor<T, R>(sql, id);
+            return BuscarValor<T>(sql);
         }
 
         public void SalvarProduto<T, R>(R produto)
@@ -31,7 +31,23 @@ namespace Database
             string sql = @"INSERT INTO produto (nome, descricao)
                                         VALUES (@nome, @descricao)";
 
-            SalvarValor<T, R>(sql, produto);            
-        }        
+            SalvarValor<T, R>(sql, produto);
+        }
+
+        public void EditarProduto<T, R>(R produto)
+        {
+            string sql = @"UPDATE produto
+                              SET nome = @nome, descricao = @descricao
+                            WHERE id = @id";
+
+            EditarValor<T, R>(sql, produto);
+        }
+
+        public void DeletarProduto(int id)
+        {
+            string sql = $"DELETE FROM produto WHERE id = {id}";
+
+            DeletarValor(sql);
+        }
     }
 }

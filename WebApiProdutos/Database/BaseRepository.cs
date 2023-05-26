@@ -32,11 +32,11 @@ namespace Database
             return result;
         }
 
-        protected T BuscarValor<T, R>(string sql, R argument)
+        protected T BuscarValor<T>(string sql)
         {
             IDbConnection connection = GetConnection();
 
-            return  connection.QueryFirstOrDefault<T>(sql, argument);
+            return  connection.QueryFirstOrDefault<T>(sql);
         }
 
         public void SalvarValor<T, R>(string sql, R argument)
@@ -44,6 +44,20 @@ namespace Database
             IDbConnection connection = GetConnection();
             
             connection.Execute(sql, argument);
+        }
+
+        public void EditarValor<T, R>(string sql, R argument)
+        {
+            IDbConnection connection = GetConnection();
+
+            connection.Execute(sql, argument);
+        }
+
+        public void DeletarValor(string sql)
+        {
+            IDbConnection connection = GetConnection();
+
+            connection.Execute(sql);
         }
 
     }
