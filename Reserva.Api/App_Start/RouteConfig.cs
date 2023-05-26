@@ -18,6 +18,11 @@ namespace Reserva.Api
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ProdutoCreate",
+                url: "Produto/Create",
+                defaults: new { controller = "Produto", action = "Create" });
         }
     }
 }

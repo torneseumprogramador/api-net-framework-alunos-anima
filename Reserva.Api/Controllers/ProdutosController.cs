@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Data.Model;
+using Negocio.Service;
+using Reserva.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +11,7 @@ namespace Reserva.Api.Controllers
 {
     public class ProdutosController : Controller
     {
+        ProdutoService produtoService = new ProdutoService();
         // GET: Produtos
         public ActionResult Index()
         {
@@ -28,17 +32,31 @@ namespace Reserva.Api.Controllers
 
         // POST: Produtos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProdutoDTO produtoDto)
         {
             try
             {
-                // TODO: Add insert logic here
+                var produto = new Produto
+                {
+                    Nome = produtoDto.Nome,
+                    Descricao = produtoDto.Descricao,
+                };
 
-                return RedirectToAction("Index");
+                produtoService.CriarProduto(produto);
+                // TODO: Add insert logic here
+                var resposta = new
+                {
+                    Success = true,
+                    Message = "Produto criado com sucesso",
+                    Data = produtoDto
+                };
+                Redirect("Index");
+
+                return Json(resposta, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return Json(ex, JsonRequestBehavior.AllowGet);
             }
         }
 
