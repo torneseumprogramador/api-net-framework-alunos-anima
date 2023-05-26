@@ -66,7 +66,7 @@ namespace Execricio.NETFramework.CRUD.Business.Services
             ProdutoResponse response = _mapper.Map<ProdutoResponse>(produto);
 
             if (infoPreco)
-                response.PrecoAtual = _precoService.RecuperarPrecos().Where(preco => preco.ProdutoId == response.Id && preco.Ativo).First().Preco;
+                response.Preco = _precoService.RecuperarPrecos().Where(preco => preco.ProdutoId == response.Id && preco.Ativo).First().Preco;
 
             return response;
         }
@@ -80,7 +80,7 @@ namespace Execricio.NETFramework.CRUD.Business.Services
             {
                 responses = responses.Select(response =>
                 {
-                    response.PrecoAtual = _precoService.RecuperarPrecos().Where(preco => preco.ProdutoId == response.Id && preco.Ativo).First().Preco;
+                    response.Preco = _precoService.RecuperarPrecos().Where(preco => preco.ProdutoId == response.Id && preco.Ativo).First().Preco;
                     return response;
                 });
             }

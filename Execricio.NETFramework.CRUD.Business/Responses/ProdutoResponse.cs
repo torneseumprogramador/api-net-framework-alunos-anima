@@ -9,6 +9,5 @@ namespace Execricio.NETFramework.CRUD.Business.Responses
 {
     public class ProdutoResponse : ProdutoDTO
     {
-        public decimal PrecoAtual { get; set; }
     }
 }

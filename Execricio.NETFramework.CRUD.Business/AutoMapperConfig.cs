@@ -13,10 +13,10 @@ namespace Execricio.NETFramework.CRUD.Business
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProdutoRequest, ProdutoResponse>().ReverseMap();
-                cfg.CreateMap<ProdutoArgument, ProdutoModel>().ReverseMap();
+                cfg.CreateMap<ProdutoArgument, ProdutoResponse>().ReverseMap();
 
                 cfg.CreateMap<PrecoRequest, PrecoResponse>().ReverseMap();
-                cfg.CreateMap<PrecoArgument, PrecoModel>().ReverseMap();
+                cfg.CreateMap<PrecoArgument, PrecoResponse>().ReverseMap();
             });
 
             return config.CreateMapper();
