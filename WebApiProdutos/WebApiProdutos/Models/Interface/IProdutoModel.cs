@@ -10,5 +10,6 @@ namespace WebApiProdutos.Models.Interface
     {
         IEnumerable<ProdutoModel> BuscarListaProdutos();
         ProdutoModel BuscarProduto(int produtoId);
+        void SalvarProduto(ProdutoModel produto);
     }
 }

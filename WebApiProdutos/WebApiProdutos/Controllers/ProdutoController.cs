@@ -26,8 +26,9 @@ namespace WebApiProdutos.Controllers
         }
 
         // POST api/produto
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ProdutoModel produto)
         {
+            _produtoModel.SalvarProduto(produto);
         }
 
         // PUT api/produto/5

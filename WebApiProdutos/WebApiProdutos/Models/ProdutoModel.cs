@@ -4,6 +4,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -27,6 +28,11 @@ namespace WebApiProdutos.Models
         public ProdutoModel BuscarProduto(int produtoId)
         {
             return produtoService.BuscaProduto<ProdutoModel, int>(produtoId);
+        }
+
+        public void SalvarProduto(ProdutoModel produto)
+        {
+            produtoService.SalvarProduto<string, ProdutoModel>(produto);
         }
     }
 }

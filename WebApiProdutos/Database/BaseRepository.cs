@@ -3,6 +3,7 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,13 @@ namespace Database
             IDbConnection connection = GetConnection();
 
             return  connection.QueryFirstOrDefault<T>(sql, argument);
+        }
+
+        public void SalvarValor<T, R>(string sql, R argument)
+        {
+            IDbConnection connection = GetConnection();
+            
+            connection.Execute(sql, argument);
         }
 
     }

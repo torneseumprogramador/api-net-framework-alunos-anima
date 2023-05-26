@@ -20,5 +20,10 @@ namespace Negocio
         {
             return produtoRepository.BuscarProduto<T, R>(argument);
         }
+
+        public void SalvarProduto<T, R>(R argument)
+        {
+            produtoRepository.SalvarProduto<T, R>(argument);
+        }
     }
 }
