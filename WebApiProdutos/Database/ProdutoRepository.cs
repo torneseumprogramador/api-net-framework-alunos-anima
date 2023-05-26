@@ -39,7 +39,7 @@ namespace Database
         public HttpResponseMessage EditarProduto<T, R>(R produto)
         {
             string sql = @"UPDATE produto
-                              SET nome = COALESCE(?, @nome), descricao = COALESCE(?, @descricao)
+                              SET nome = COALESCE(@nome, nome), descricao = COALESCE(@descricao, descricao)
                             WHERE id = @id";
 
             return SalvarValor<T, R>(sql, produto);
