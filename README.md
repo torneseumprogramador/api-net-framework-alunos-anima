@@ -25,5 +25,6 @@ CRUD de produtos
 ### Extra
 
 ```code
+Trabalhar com 3 camadas - Database/Business/UI
 Criar um visual em vue.js para utilizar a API 
 ```
