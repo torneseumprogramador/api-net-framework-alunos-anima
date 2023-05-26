@@ -55,8 +55,13 @@ namespace Execricio.NETFramework.CRUD.Business.Services
         {
             IEnumerable<PrecoArgument> precos = _precoRepository.RecuperarPrecos();
 
-            if(!precos.Any(preco => preco.Id == id))
+            if(!precos.Any(p => p.Id == id))
                 return false;
+
+            PrecoArgument preco = precos.FirstOrDefault(p => p.Id == id);
+
+            if (preco != null)
+                AtualizarPreco(id, _mapper.Map<PrecoRequest>(preco));
 
             return _precoRepository.DeletarPreco(id);
         }
