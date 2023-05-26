@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Execricio.NETFramework.CRUD.API.Areas.HelpPage.ModelDescriptions
