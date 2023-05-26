@@ -20,17 +20,11 @@ namespace Repository.Repository
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 var sql = @"select
-                                pro.id Id,
-                                pro.nome Nome,
-                                pro.descricao Descricao,
-                                pre.preco Valor,
-                                pre.data Data
+                                Id,
+                                Nome,
+                                Descricao,
                             from
-                                produto pro
-                            join preco pre on
-                                pre.produto_id = pro.id
-                            group by pro.id , pro.nome, pro.descricao
-                            having max(pre.data)";
+                                produto";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))
@@ -45,8 +39,6 @@ namespace Repository.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Nome = reader["Nome"].ToString(),
                                 Descricao = reader["Descricao"].ToString(),
-                                Valor = Convert.ToDouble(reader["Valor"]),
-                                Data = Convert.ToDateTime(reader["Data"].ToString())
                             };
                             produtos.Add(produto);
                         }
@@ -62,17 +54,13 @@ namespace Repository.Repository
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 var sql = @"SELECT
-                                pro.id AS Id,
-                                pro.nome AS Nome,
-                                pro.descricao AS Descricao,
-                                pre.preco AS Valor,
-                                pre.data AS Data
+                                Id,
+                                Nome,
+                                Descricao
                             FROM
-                                produto pro
-                            JOIN
-                                preco pre ON pre.produto_id = pro.id
+                                produto
                             WHERE
-                                pro.id = @id";
+                                Id = @id";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))
@@ -87,8 +75,6 @@ namespace Repository.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Nome = reader["Nome"].ToString(),
                                 Descricao = reader["Descricao"].ToString(),
-                                Valor = Convert.ToDouble(reader["Valor"]),
-                                Data = Convert.ToDateTime(reader["Data"].ToString())
                             };
                             return produto;
                         }
@@ -105,11 +91,9 @@ namespace Repository.Repository
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"INSERT INTO produto (nome, descricao) VALUES (@nome, @descricao);
-                                            INSERT INTO preco (produto_id, preco, data) VALUES (last_insert_rowid(), @valor, datetime('now', 'localtime'));";
+                    command.CommandText = @"INSERT INTO produto (nome, descricao) VALUES (@nome, @descricao);";
                     command.Parameters.AddWithValue("@nome", produto.Nome);
                     command.Parameters.AddWithValue("@descricao", produto.Descricao);
-                    command.Parameters.AddWithValue("@valor", produto.Valor);
 
                     return command.ExecuteNonQuery() > 0;
                 }
@@ -125,15 +109,10 @@ namespace Repository.Repository
                 {
                     command.CommandText = @"UPDATE produto
                                             SET nome = @nome, descricao = @descricao
-                                            WHERE id = @id;
-                                            UPDATE preco
-                                            SET preco = @valor, data = datetime('now', 'localtime')
-                                            WHERE produto_id = @id;";
+                                            WHERE id = @id;";
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@nome", produto.Nome);
                     command.Parameters.AddWithValue("@descricao", produto.Descricao);
-                    command.Parameters.AddWithValue("@valor", produto.Valor);
-
                     return command.ExecuteNonQuery() > 0;
                 }
             }
@@ -147,10 +126,8 @@ namespace Repository.Repository
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"DELETE FROM produto WHERE id = @id;
-                                        DELETE FROM preco WHERE produto_id = @id;";
+                    command.CommandText = @"DELETE FROM produto WHERE id = @id;";
                     command.Parameters.AddWithValue("@id", id);
-
                     return command.ExecuteNonQuery() > 0;
                 }
             }

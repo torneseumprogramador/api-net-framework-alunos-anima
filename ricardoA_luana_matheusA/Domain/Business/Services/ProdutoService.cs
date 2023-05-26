@@ -9,6 +9,7 @@ namespace Service.Services
     public class ProdutoService : IProdutoService
     {
         private readonly IProdutoRepository _produtoRepository;
+        private readonly I
 
         public ProdutoService()
         {

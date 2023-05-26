@@ -60,9 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\PrecoDTO.cs" />
     <Compile Include="DTO\ProdutoDTO.cs" />
+    <Compile Include="Interfaces\IPrecoRepository.cs" />
     <Compile Include="Interfaces\IProdutoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\PrecoRepository.cs" />
     <Compile Include="Repositories\ProdutoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
