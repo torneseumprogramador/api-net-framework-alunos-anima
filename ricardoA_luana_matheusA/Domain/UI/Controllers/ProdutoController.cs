@@ -23,63 +23,79 @@ namespace Domain.Controllers
 
         [HttpGet]
         [Route("produtos")]
-        public List<ProdutoDTO> BuscarProdutos()
+        public IHttpActionResult BuscarProdutos()
         {
-            return _produtoService.BuscarProdutos();
+            try
+            {
+                var produtos = _produtoService.BuscarProdutos();
+                return Ok(produtos);
+            }
+            catch (Exception ex)
+            {
+                // Tratar erros e retornar uma resposta apropriada
+                return InternalServerError(ex);
+            }
         }
 
         [HttpGet]
         [Route("produtos/{id}")]
-        public ProdutoDTO BuscarProduto(int id)
+        public IHttpActionResult BuscarProduto(int id)
         {
-            return _produtoService.BuscarProduto(id);
+            try
+            {
+                var produto = _produtoService.BuscarProduto(id);
+                return Ok(produto);
+            }
+            catch (Exception ex)
+            {
+                // Tratar erros e retornar uma resposta apropriada
+                return InternalServerError(ex);
+            }
+
         }
 
         [HttpPost]
         [Route("produtos")]
-        public string InserirProduto(ProdutoDTO produto)
+        public IHttpActionResult InserirProduto(ProdutoDTO produto)
         {
-            var result = _produtoService.InserirProduto(produto);
-            
-            if(result == true)
+            try
             {
-                return "Produto cadastrado com sucesso!";
+                _produtoService.InserirProduto(produto);
+                return CreatedAtRoute("DefaultApi", new { id = produto.Id }, produto);
             }
-            else
+            catch (Exception ex)
             {
-                return "Erro ao cadastrar produto!";
+                return InternalServerError(ex);
             }
         }
 
         [HttpPut]
         [Route("produtos/{id}")]
-        public string AtualizarProduto(int id, ProdutoDTO produto)
+        public IHttpActionResult AtualizarProduto(int id, ProdutoDTO produto)
         {
-            var result = _produtoService.AtualizarProduto(id, produto);
-
-            if (result == true)
+            try
             {
-                return "Produto atualizado com sucesso!";
+                _produtoService.AtualizarProduto(id, produto);
+                return StatusCode(System.Net.HttpStatusCode.NoContent);
             }
-            else
+            catch (Exception ex)
             {
-                return "Erro ao atualizar produto!";
+                return InternalServerError(ex);
             }
         }
 
         [HttpDelete]
         [Route("produtos/{id}")]
-        public string DeletarProduto(int id)
+        public IHttpActionResult DeletarProduto(int id)
         {
-            var result = _produtoService.DeletarProduto(id);
-
-            if (result == true)
+            try
             {
-                return "Produto deletado com sucesso!";
+                _produtoService.DeletarProduto(id);
+                return StatusCode(System.Net.HttpStatusCode.NoContent);
             }
-            else
+            catch (Exception ex)
             {
-                return "Erro ao deletar produto!";
+                return InternalServerError(ex);
             }
         }
     }

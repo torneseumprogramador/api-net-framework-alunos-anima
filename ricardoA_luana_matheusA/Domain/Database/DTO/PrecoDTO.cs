@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Service.DTO
 {
-    public class ProdutoDTO
+    public class PrecoDTO
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
+        public string ProdutoId { get; set; }
+        public double Preco { get; set; }
+        public DateTime Data { get; set; }
 
     }
 }

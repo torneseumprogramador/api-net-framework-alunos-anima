@@ -11,54 +11,57 @@ using System.Threading.Tasks;
 
 namespace Repository.Repository
 {
-    public class ProdutoRepository : IProdutoRepository
+    public class PrecoRepository : IPrecoRepository
     {
         string connectionString = ("Data Source=" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "reserva.db") + ";Version=3;").Replace("\\UI\\", "\\Database\\");
 
-        public List<ProdutoDTO> BuscarProdutos()
+        public List<PrecoDTO> BuscarPrecos()
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 var sql = @"select
                                 Id,
-                                Nome,
-                                Descricao,
+                                produto_id,
+                                preco,
+                                data,
                             from
-                                produto";
+                                Preco";
 
                 connection.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
-                        var produtos = new List<ProdutoDTO>();
+                        var Precos = new List<PrecoDTO>();
                         while (reader.Read())
                         {
-                            var produto = new ProdutoDTO
+                            var Preco = new PrecoDTO
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
-                                Nome = reader["Nome"].ToString(),
-                                Descricao = reader["Descricao"].ToString(),
+                                ProdutoId = reader["produto_id"].ToString(),
+                                Preco = Convert.ToDouble(reader["Preco"].ToString()),
+                                Data = Convert.ToDateTime(reader["data"].ToString())
                             };
-                            produtos.Add(produto);
+                            Precos.Add(Preco);
                         }
-                        return produtos;
+                        return Precos;
                     }
 
                 }
             }
         }
 
-        public ProdutoDTO BuscarProduto(int id)
+        public PrecoDTO BuscarPreco(int id)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                var sql = @"SELECT
+                var sql = @"select
                                 Id,
-                                Nome,
-                                Descricao
-                            FROM
-                                produto
+                                produto_id,
+                                preco,
+                                data,
+                            from
+                                Preco
                             WHERE
                                 Id = @id";
 
@@ -70,13 +73,14 @@ namespace Repository.Repository
                     {
                         if (reader.Read())
                         {
-                            var produto = new ProdutoDTO
+                            var Preco = new PrecoDTO
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
-                                Nome = reader["Nome"].ToString(),
-                                Descricao = reader["Descricao"].ToString(),
+                                ProdutoId = reader["produto_id"].ToString(),
+                                Preco = Convert.ToDouble(reader["Preco"].ToString()),
+                                Data = Convert.ToDateTime(reader["data"].ToString())
                             };
-                            return produto;
+                            return Preco;
                         }
                         return null;
                     }
@@ -84,49 +88,51 @@ namespace Repository.Repository
             }
         }
 
-        public bool InserirProduto(ProdutoDTO produto)
+        public bool InserirPreco(PrecoDTO Preco)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"INSERT INTO produto (nome, descricao) VALUES (@nome, @descricao);";
-                    command.Parameters.AddWithValue("@nome", produto.Nome);
-                    command.Parameters.AddWithValue("@descricao", produto.Descricao);
+                    command.CommandText = @"INSERT INTO Preco (produto_id, preco, data) VALUES (@produtoId, @preco, @data);";
+                    command.Parameters.AddWithValue("@produtoId", Preco.ProdutoId);
+                    command.Parameters.AddWithValue("@preco", Preco.Preco);
+                    command.Parameters.AddWithValue("@data", Preco.Data);
 
                     return command.ExecuteNonQuery() > 0;
                 }
             }
         }
 
-        public bool AtualizarProduto(int id, ProdutoDTO produto)
+        public bool AtualizarPreco(int id, PrecoDTO Preco)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"UPDATE produto
-                                            SET nome = @nome, descricao = @descricao
+                    command.CommandText = @"UPDATE Preco
+                                            SET produto_id = @produtoId, preco = @preco, data = @data
                                             WHERE id = @id;";
                     command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@nome", produto.Nome);
-                    command.Parameters.AddWithValue("@descricao", produto.Descricao);
+                    command.Parameters.AddWithValue("@produtoId", Preco.ProdutoId);
+                    command.Parameters.AddWithValue("@preco", Preco.Preco);
+                    command.Parameters.AddWithValue("@data", Preco.Data);
                     return command.ExecuteNonQuery() > 0;
                 }
             }
         }
 
 
-        public bool DeletarProduto(int id)
+        public bool DeletarPreco(int id)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = @"DELETE FROM produto WHERE id = @id;";
+                    command.CommandText = @"DELETE FROM Preco WHERE id = @id;";
                     command.Parameters.AddWithValue("@id", id);
                     return command.ExecuteNonQuery() > 0;
                 }
