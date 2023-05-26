@@ -7,6 +7,7 @@ using Execricio.NETFramework.CRUD.Business.Services.Interfaces;
 
 namespace Execricio.NETFramework.CRUD.API.Controllers
 {
+    [Route("produto")]
     public class ProdutoController : ApiController
     {
         private readonly IProdutoService _produtoService;
@@ -16,15 +17,16 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             _produtoService = ProdutoService.Instance;
         }
 
-        // GET api/produto
-        public IEnumerable<ProdutoResponse> Get()
+        [HttpGet]
+        public IEnumerable<ProdutoResponse> RecuperarProdutos()
         {
             IEnumerable<ProdutoResponse> produtos = _produtoService.RecuperarProdutos();
             return produtos;
         }
 
-        // GET api/produto/{id}
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        [Route("produto/{id}")]
+        public IHttpActionResult RecuperarProdutos(int id)
         {
             ProdutoResponse produto = _produtoService.RecuperarProduto(id);
             if (produto == null)
@@ -33,14 +35,35 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             return Ok(produto);
         }
 
-        // POST api/produto
-        public IHttpActionResult Post([FromBody] ProdutoRequest produto)
+        [HttpGet]
+        [Route("produto/vendas")]
+        public IEnumerable<ProdutoResponse> RecuperarProdutosVendas()
+        {
+            IEnumerable<ProdutoResponse> produtos = _produtoService.RecuperarProdutos(infoPreco: true);
+            return produtos;
+        }
+
+        [HttpGet]
+        [Route("produto/vendas/{id}")]
+        public IHttpActionResult RecuperarProdutoVendas(int id)
+        {
+            ProdutoResponse produto = _produtoService.RecuperarProduto(id: id, infoPreco: true);
+
+            if (produto is null)
+                return NotFound();
+
+            return Ok(produto);
+        }
+
+        [HttpPost]
+        public IHttpActionResult SalvarProduto([FromBody] ProdutoRequest produto)
         {
             return Ok(_produtoService.SalvarProduto(produto));
         }
 
-        // PUT api/produto/{id}
-        public IHttpActionResult Put(int id, [FromBody] ProdutoRequest produto)
+        [HttpPost]
+        [Route("produto/{id}")]
+        public IHttpActionResult AtualizarProduto(int id, [FromBody] ProdutoRequest produto)
         {
             if (!_produtoService.AtualizarProduto(id, produto))
                 return NotFound();
@@ -48,13 +71,15 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             return Ok();
         }
 
-        // DELETE api/produto/{id}
-        public IHttpActionResult Delete(int id)
+        [HttpDelete]
+        public IHttpActionResult DeletarProduto(int id)
         {
             if (!_produtoService.DeletarProduto(id))
                 return NotFound();
 
             return Ok();
         }
+
+
     }
 }

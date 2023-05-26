@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Execricio.NETFramework.CRUD.Testes</RootNamespace>
     <AssemblyName>Execricio.NETFramework.CRUD.Testes</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>

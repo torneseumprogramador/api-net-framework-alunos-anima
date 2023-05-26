@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Execricio.NETFramework.CRUD.API.Controllers
 {
+    [Route("precos")]
     public class PrecoController : ApiController
     {
         private readonly IPrecoService _precoService;
@@ -16,15 +17,16 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             _precoService = PrecoService.Instance;
         }
 
-        // GET api/preco
-        public IEnumerable<PrecoResponse> Get()
+        [HttpGet]
+        public IEnumerable<PrecoResponse> RecuperarPrecos()
         {
             IEnumerable<PrecoResponse> precos = _precoService.RecuperarPrecos();
             return precos;
         }
 
-        // GET api/preco/{id}
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        [Route("precos/{id}")]
+        public IHttpActionResult RecuperarPreco(int id)
         {
             PrecoResponse preco = _precoService.RecuperarPreco(id);
             if (preco == null)
@@ -33,14 +35,15 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             return Ok(preco);
         }
 
-        // POST api/preco
-        public IHttpActionResult Post([FromBody] PrecoRequest preco)
+        [HttpPost]
+        public IHttpActionResult SalvarPreco([FromBody] PrecoRequest preco)
         {
             return Ok(_precoService.SalvarPreco(preco));
         }
 
-        // PUT api/preco/{id}
-        public IHttpActionResult Put(int id, [FromBody] PrecoRequest preco)
+        [HttpPost]
+        [Route("precos/{id}")]
+        public IHttpActionResult AtualizarPreco(int id, [FromBody] PrecoRequest preco)
         {
             if (!_precoService.AtualizarPreco(id, preco))
                 return NotFound();
@@ -48,8 +51,8 @@ namespace Execricio.NETFramework.CRUD.API.Controllers
             return Ok();
         }
 
-        // DELETE api/preco/{id}
-        public IHttpActionResult Delete(int id)
+        [HttpDelete]
+        public IHttpActionResult DeletarPreco(int id)
         {
             if (!_precoService.DeletarPreco(id))
                 return NotFound();

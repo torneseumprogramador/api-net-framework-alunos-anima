@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Execricio.NETFramework.CRUD.Business</RootNamespace>
     <AssemblyName>Execricio.NETFramework.CRUD.Business</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -54,8 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\PrecoDTO.cs" />
-    <Compile Include="DTOs\ProdutoDTO.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Models\PrecoModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
