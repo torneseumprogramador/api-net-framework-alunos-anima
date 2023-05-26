@@ -50,6 +50,49 @@ namespace BaseDados.Repositories
             return precoProduto;
         }
 
+        public List<PrecoProduto> ObterPrecoPorProduto(int id)
+        {
+            List<PrecoProduto> precoProdutos = new List<PrecoProduto>();
+
+            string sql = "SELECT * FROM precoproduto pprod WHERE pprod.IdProduto = @Id";
+
+            using (var conexao = ConectaBase.Conexao())
+            {
+                conexao.Open();
+
+                using (var command = new SQLiteCommand(sql, conexao))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    try
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PrecoProduto precoProduto = new PrecoProduto
+                                {
+                                    Id = (int)reader["Id"],
+                                    Titulo = reader["Titulo"].ToString(),
+                                    ProdutoId = (int)reader["IdProduto"],
+                                    Preco = (double)reader["Preco"],
+                                    Cadastro = DateTime.Parse(reader["Cadastro"].ToString())
+                                };
+
+                                precoProdutos.Add(precoProduto);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Houve um problema ao ler da base: {ex}");
+                    }
+                }
+            }
+
+            return precoProdutos;
+        }
+
 
         public List<PrecoProduto> Listar()
         {
@@ -82,6 +125,7 @@ namespace BaseDados.Repositories
             }
             return precoProdutos;
         }
+
 
         public PrecoProduto Salvar(PrecoProduto precoProduto)
         {

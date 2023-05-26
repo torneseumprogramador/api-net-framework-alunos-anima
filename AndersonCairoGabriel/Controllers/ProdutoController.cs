@@ -15,16 +15,33 @@ namespace AndersonCairoGabriel.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult ListarPessoas()
+        public IHttpActionResult ListarProdutos()
         {
             var produtos = _produtosBusiness.ListarProdutos();
             return Ok(produtos);
         }
 
         [HttpGet]
-        public IHttpActionResult ObterPessoa(int id)
+        [Route("api/produto/precos")]
+        public IHttpActionResult ListarProdutosComPreco()
+        {
+            return Ok(_produtosBusiness.ListarProdutosComPreco());
+        }
+
+        [HttpGet]
+        [Route("api/produto/{id:int}")]
+        public IHttpActionResult ObterProduto(int id)
         {
             var produto = _produtosBusiness.ObterProduto(id);
+
+            return Ok(produto);
+        }
+
+        [HttpGet]
+        [Route("api/produto/preco/{id:int}")]
+        public IHttpActionResult ObterProdutoComPreco(int id)
+        {
+            var produto = _produtosBusiness.ObterProdutoComPreco(id);
 
             return Ok(produto);
         }
