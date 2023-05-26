@@ -41,7 +41,7 @@ namespace Execricio.NETFramework.CRUD.Business.Services
             if (id != preco.Id || preco is null)
                 return false;
 
-            PrecoArgument precoAtualizado = _mapper.Map<PrecoArgument>(preco);
+            PrecoArgument precoAtualizado = _precoRepository.RecuperarPreco(id);
             precoAtualizado.Ativo = false;
             _precoRepository.AtualizarPreco(precoAtualizado);
 
