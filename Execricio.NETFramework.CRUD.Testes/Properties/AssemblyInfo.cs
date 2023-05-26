@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
-// associada a um assembly.
-[assembly: AssemblyTitle("Execricio.NETFramework.CRUD.Database")]
+// associadas a um assembly.
+[assembly: AssemblyTitle("Execricio.NETFramework.CRUD.Testes")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Anima Educação ")]
-[assembly: AssemblyProduct("Execricio.NETFramework.CRUD.Database")]
+[assembly: AssemblyProduct("Execricio.NETFramework.CRUD.Testes")]
 [assembly: AssemblyCopyright("Copyright © Anima Educação  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
-[assembly: Guid("8036c47c-a452-4795-aba2-e8d31fca3ef7")]
+[assembly: Guid("ce7f3a01-8e3e-4714-b7df-73fb1532f951")]
 
 // As informações da versão de um assembly consistem nos quatro valores a seguir:
 //
