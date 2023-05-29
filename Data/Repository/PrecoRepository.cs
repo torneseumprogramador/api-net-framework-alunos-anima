@@ -39,11 +39,12 @@ namespace Data.Repository
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(context.ConnectionString()))
             {
-                string query = "INSERT INTO precos(Id_Produto, Data_preco) VALUES (:IdProduto, :DataPreco)";
+                string query = "INSERT INTO precos(valor, data_preco, produto_id) VALUES (:Valor, :DataPreco, :IdProduto)";
 
                 DynamicParameters parametros = new DynamicParameters();
-                parametros.Add("IdProduto", preco.Id_Produto, DbType.Int32);
+                parametros.Add("Valor", preco.Valor, DbType.Double);
                 parametros.Add("DataPreco", preco.Data_Preco, DbType.DateTime);
+                parametros.Add("IdProduto", preco.Produto_id, DbType.Int32);
 
                 connection.Execute(query, parametros);
             }

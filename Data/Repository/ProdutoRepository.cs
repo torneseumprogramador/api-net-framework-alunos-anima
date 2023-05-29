@@ -18,7 +18,7 @@ namespace Data.Repository
             using (var connection = new NpgsqlConnection(context.ConnectionString()))
             {
                 connection.Open();
-                var sql = "SELECT * FROM clientes WHERE Id = @Id";
+                var sql = "SELECT * FROM produtos WHERE Id = @Id";
                 return connection.QueryFirstOrDefault<Produto>(sql, new { Id = id });
             }
         }
@@ -28,7 +28,7 @@ namespace Data.Repository
             using (var connection = new NpgsqlConnection(context.ConnectionString()))
             {
                 connection.Open();
-                var sql = "SELECT * FROM clientes ";
+                var sql = "SELECT * FROM produtos";
                 return connection.Query<Produto>(sql).ToList();
             }
         }
@@ -64,9 +64,9 @@ namespace Data.Repository
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(context.ConnectionString()))
             {
-                string query = "UPDATE PRODUTOS" +
-                    "set Nome = @Nome, Descricao = @Descricao" +
-                    " WHERE Id = @Id";
+                string query = "UPDATE PRODUTOS " +
+                    "set Nome = @Nome, Descricao = @Descricao " +
+                    "WHERE Id = @Id";
 
                 DynamicParameters parametros = new DynamicParameters();
                 parametros.Add("Id", produto.Id, DbType.Int32);

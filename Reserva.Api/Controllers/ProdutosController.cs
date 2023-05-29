@@ -4,7 +4,6 @@ using Reserva.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Reserva.Api.Controllers
@@ -15,7 +14,15 @@ namespace Reserva.Api.Controllers
         // GET: Produtos
         public ActionResult Index()
         {
-            return View();
+            var produtos = produtoService.BuscaProdutos();
+
+            var produtosDto = new List<ProdutoDTO>();
+
+            foreach (var p in produtos)
+            {
+                produtosDto.Add(new ProdutoDTO { Id = p.Id, Descricao = p.Descricao, Nome = p.Nome });
+            }
+            return View(produtosDto);
         }
 
         // GET: Produtos/Details/5
@@ -54,7 +61,7 @@ namespace Reserva.Api.Controllers
 
                 return Json(resposta, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(ex, JsonRequestBehavior.AllowGet);
             }
@@ -75,10 +82,17 @@ namespace Reserva.Api.Controllers
 
         // POST: Produtos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ProdutoDTO produtoDTO)
         {
             try
             {
+                var produto = new Produto
+                {
+                    Id = produtoDTO.Id,
+                    Nome = produtoDTO.Nome,
+                    Descricao = produtoDTO.Descricao,
+                };
+                produtoService.AtualizaProduto(produto);
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");

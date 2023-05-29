@@ -158,7 +158,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrecosController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,10 +235,12 @@
     <Content Include="Views\Produtos\Index.cshtml" />
     <Content Include="Views\Produtos\Create.cshtml" />
     <Content Include="Views\Produtos\Edit.cshtml" />
+    <Content Include="Views\Produtos\List.cshtml" />
+    <Content Include="Views\Precos\Index.cshtml" />
+    <Content Include="Views\Precos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Precos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

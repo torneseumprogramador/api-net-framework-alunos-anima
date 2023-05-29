@@ -4,8 +4,9 @@ namespace Reserva.Api.Models
 {
     public class PrecoDTO
     {
-        public int Id{ get; set; }
-        public int Id_Produto { get; set; }
+        public int Id { get; set; }
+        public double Valor { get; set; }
+        public int Produto_id { get; set; }
         public DateTime Data_Preco { get; set; }
     }
 }

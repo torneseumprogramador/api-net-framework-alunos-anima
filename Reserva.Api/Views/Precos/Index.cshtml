@@ -1,22 +1,5 @@
-﻿@*@{
-        ViewBag.Title = "Index";
-    }
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Minha Página Inicial</title>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    </head>
-    <body>
-        <div id="app">
-            <h1>{{ message }}</h1>
-        </div>
-        <script src="~/Scripts/app.js"></script>
-    </body>
-    </html>*@
-
-@model IEnumerable<Reserva.Api.Models.ProdutoDTO>
+﻿
+@model IEnumerable<Reserva.Api.Models.PrecoDTO>
 
 @{
     ViewBag.Title = "List";
@@ -33,10 +16,13 @@
             @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Valor)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayNameFor(model => model.Produto_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data_Preco)
         </th>
         <th></th>
     </tr>
@@ -47,11 +33,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => item.Produto_id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
+                @Html.DisplayFor(modelItem => item.Data_Preco)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

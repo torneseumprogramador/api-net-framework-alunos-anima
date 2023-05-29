@@ -1,5 +1,6 @@
 ﻿using Data.Model;
 using Data.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace Negocio.Service
@@ -17,6 +18,7 @@ namespace Negocio.Service
         }
         public void CriarPreco(Preco preco)
         {
+            preco.Data_Preco = DateTime.Now.ToUniversalTime();
             precoRepository.CriarPreco(preco);
         }
 
