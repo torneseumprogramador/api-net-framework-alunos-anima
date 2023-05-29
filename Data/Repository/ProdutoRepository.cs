@@ -5,7 +5,6 @@ using Npgsql;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace Data.Repository
 {
