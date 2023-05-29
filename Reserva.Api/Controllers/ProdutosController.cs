@@ -63,7 +63,14 @@ namespace Reserva.Api.Controllers
         // GET: Produtos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var produto = produtoService.BuscaProduto(id);
+            var produtoDto = new ProdutoDTO
+            {
+                Id = id,
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+            };
+            return View(produtoDto);
         }
 
         // POST: Produtos/Edit/5
